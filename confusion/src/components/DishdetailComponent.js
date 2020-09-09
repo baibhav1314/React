@@ -1,13 +1,7 @@
-import React, { Component } from 'react';
-import { Card, CardImg, CardImgOverlay, CardText, CardBody,CardTitle } from 'reactstrap';
+import React from 'react';
+import { Card, CardImg, CardText, CardBody,CardTitle } from 'reactstrap';
 
-class DishDetail extends Component{
-    constructor(props){
-        super(props);
-    }
-
-
-    renderDish(dish) {
+    function RenderDish({dish}) {
         if (dish != null)
             return(
                 <Card>
@@ -25,7 +19,7 @@ class DishDetail extends Component{
             );
      }
 
-     renderComments(comments) {
+    function RenderComments({comments}) {
          if(comments != null){
 
             const comms = comments.map((comm) => {
@@ -58,25 +52,27 @@ class DishDetail extends Component{
             );
      }
 
-    render() {
-        const dish = this.props.selectedDish;
-        var comments = null;
-        if(dish != null){
-            comments = dish.comments;
-        }
-        return(
-            <div className="container">
-                <div className="row">
-                    <div className="col-12 col-md-5 m-1">
-                        {this.renderDish(dish)}
-                    </div>
-                    <div className="col-12 col-md-5 m-1">
-                        {this.renderComments(comments)}
+    const  DishDetail = (props) => {
+        const dish = props.selectedDish;
+    
+        if(props.selectedDish)
+            return(   
+                <div className="container">
+                    <div className="row">
+                        <div className="col-12 col-md-5 m-1">
+                            <RenderDish dish={dish}/>
+                        </div>
+                        <div className="col-12 col-md-5 m-1">
+                            <RenderComments comments={dish.comments}/>
+                        </div>
                     </div>
                 </div>
-            </div>
-        );
+            );
+        else
+            return(
+                <div></div>
+            );
     }
-}
+
 
 export default DishDetail;
